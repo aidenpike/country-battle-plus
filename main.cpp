@@ -10,6 +10,7 @@ int main() {
     Country misc;
     char playAgain = 'Y';
     int playerChoice;
+    int winChance = 0;
     bool hasWon = false;
 
     //Title Screen
@@ -40,27 +41,27 @@ cout << playerOne.returnName(1) << " you have " << playerOne.returnArmies(1) << 
     do {
         //Player 1
         //Conquer
-        if (playerOne.returnTerritories(1) <= 0){
-            playerTwo.winType(2, "conquer");
-            hasWon = false;
+        if (playerTwo.returnTerritories(2) <= 0){
+            playerOne.winType(2, "conquer");
+            hasWon = true;
             return 0;
         }
         //Elimination
-        else if (playerOne.returnArmies(1) <= 0 && playerOne.returnTerritories(1) <= 0){
-            playerTwo.winType(2, "elim");
-            hasWon = false;
+        else if (playerTwo.returnArmies(2) <= 0 && playerTwo.returnTerritories(2) <= 0){
+            playerOne.winType(1, "elim");
+            hasWon = true;
             return 0;
         }
         //Full Elimination
-        else if (playerOne.returnArmies(1) <= 0 && playerOne.returnTerritories(1) <= 0 && playerOne.returnMoney(1) <= 0){
-            playerTwo.winType(2, "full elim");
-            hasWon = false;
+        else if (playerTwo.returnArmies(2) <= 0 && playerTwo.returnTerritories(2) <= 0 && playerTwo.returnMoney(2) <= 0){
+            playerOne.winType(1, "full elim");
+            hasWon = true;
             return 0;
         }
         //Devastation
-        else if (playerOne.returnMoney(1) <= 0){
-            playerTwo.winType(2, "devastation");
-            hasWon = false;
+        else if (playerTwo.returnMoney(2) <= 0){
+            playerOne.winType(1, "devastation");
+            hasWon = true;
             return 0;
         }
         
@@ -92,33 +93,42 @@ cout << playerOne.returnName(1) << " you have " << playerOne.returnArmies(1) << 
             break;
 
             case 5:
-                if (playerOne.returnArmies(1) > playerTwo.returnArmies(2)){
+                winChance = 0 + rand() % (100 + 0 - 1);
+
+                if (winChance < (50 + playerOne.returnArmies(1) + playerOne.returnTech(1))){
                     playerOne.winBattle(1, 0);
                     playerTwo.lostBattle(2);
                 }
-                else if (playerOne.returnArmies(1) == playerTwo.returnArmies(2)){
-                    if (playerOne.returnTech(1) > playerTwo.returnTech(2)){
-                        playerOne.winBattle(1, 0);
-                        playerTwo.lostBattle(2);
-                    }
-                    else if (playerOne.returnTech(1) == playerTwo.returnTech(2)){
-                        srand(int(time(0)));
-
-                        int i = 1 + rand() % (2 + 1 - 1);
-
-                        if (i == 1){
-                            playerOne.winBattle(1, 0);
-                            playerTwo.lostBattle(2);
-                        }
-                        else if (i == 2){
-                            playerTwo.winBattle(2, 0);
-                            playerOne.lostBattle(1);        
-                        }
-                    }
-                }
-                else {
+                else if (winChance > 50){
                     playerTwo.winBattle(2, 0);
                     playerOne.lostBattle(1);
+                }
+                else if (winChance == 50)
+                    cout << "Draw." << endl;
+
+                //Conquer
+                if (playerTwo.returnTerritories(2) <= 0){
+                    playerOne.winType(1, "conquer");
+                    hasWon = true;
+                    return 0;
+                }
+                //Elimination
+                else if (playerTwo.returnArmies(2) <= 0 && playerTwo.returnTerritories(2) <= 0){
+                    playerOne.winType(1, "elim");
+                    hasWon = true;
+                    return 0;
+                }
+                //Full Elimination
+                else if (playerTwo.returnArmies(2) <= 0 && playerTwo.returnTerritories(2) <= 0 && playerTwo.returnMoney(2) <= 0){
+                    playerOne.winType(1, "full elim");
+                    hasWon = true;
+                    return 0;
+                }
+                //Devastation
+                else if (playerTwo.returnMoney(2) <= 0){
+                    playerOne.winType(1, "devastation");
+                    hasWon = true;
+                    return 0;
                 }
             break;
 
