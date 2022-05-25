@@ -68,7 +68,7 @@ cout << playerOne.returnName(1) << " you have " << playerOne.returnArmies(1) << 
         cout << playerOne.returnName(1) << ", it is your turn. What do you wish to do?" << endl <<
                                            "\t1. Grow Territories ($10,000 [+1 Territory, requires a spare army to control])\n" <<
                                            "\t2. Shrink Territories (-1 Territory, get back $10,000 [Can sell to " << playerTwo.returnName(2) << "])\n" << 
-                                           "\t3. Upgrade Technology (+1 Level of tech, increases chance of winning skirmishes $" << 20000 - (playerOne.returnScientists(1) * 1000) << " [Original Price: $5000])\n" <<
+                                           "\t3. Upgrade Technology (+1 Level of tech, increases chance of winning skirmishes $" << 20000 - (playerOne.returnScientists(1) * 1000) << " [Original Price: $20,000])\n" <<
                                            "\t4. Upgrade Army (+1 army, increases chance of winning skirmishes, $8,000)\n" <<
                                            "\t5. Attack\n" <<
                                            "\t6. Pass\n" <<
@@ -181,7 +181,7 @@ cout << playerOne.returnName(1) << " you have " << playerOne.returnArmies(1) << 
         cout << playerTwo.returnName(2) << ", it is your turn. What do you wish to do?" << endl <<
                                            "\t1. Grow Territories ($10,000 [+1 Territory, requires a spare army to control])\n" <<
                                            "\t2. Shrink Territories (-1 Territory, get back $10,000 [Can sell to " << playerOne.returnName(2) << "])\n" << 
-                                           "\t3. Upgrade Technology (+1 Level of tech, increases chance of winning skirmishes $" << 20000 - (playerTwo.returnScientists(1) * 1000) << " [Original Price: $5000])\n" <<
+                                           "\t3. Upgrade Technology (+1 Level of tech, increases chance of winning skirmishes $" << 20000 - (playerTwo.returnScientists(1) * 1000) << " [Original Price: $20,000])\n" <<
                                            "\t4. Upgrade Army (+1 army, increases chance of winning skirmishes, $8,000)\n" <<
                                            "\t5. Attack\n" <<
                                            "\t6. Pass\n" <<
