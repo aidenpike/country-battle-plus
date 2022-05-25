@@ -21,6 +21,7 @@ class Country {
         int returnScientists(int); //+1 Scientist per 2 Territories. Check each round
         void winType(int, string); //How did the player win?
         void deCheeser(int); //Stops from cheesing the game (1) and also resets stats (2)
+        //Possible Addition: Retrieve Taxes Action (10% of total Territories * Technology Level)
     //private:
         int playerOneArmies, playerTwoArmies;
         int playerOneScientists, playerTwoScientists;
@@ -35,7 +36,7 @@ Country::Country(){
     playerOneArmies = 10, playerTwoArmies = 10;
     playerOneScientists = 0, playerTwoScientists = 0; 
     playerOneMoney = 50000.0, playerTwoMoney = 50000.0;
-    playerOneTerritories = 1, playerTwoTerritories = 1;
+    playerOneTerritories = 2, playerTwoTerritories = 2;
     playerOneTechnology = 1, playerTwoTechnology = 1; //x/10 Rating
     player1Name = "", player2Name = "";
 }
@@ -74,14 +75,18 @@ void Country::growTerritories(int player){
 
 void Country::upgradeTech(int player){
     if (player == 1){
-        if ((playerOneMoney) >= (5000 - (playerOneScientists * 100)) && playerOneTechnology < 10)
+        if ((playerOneMoney) >= (20000 - (playerOneScientists * 100)) && playerOneTechnology < 10){
             playerOneTechnology++;
+            playerOneMoney -= 20000;
+        }
         else 
             cout << "You cannot upgrade your technology!" << endl;
     }
     else if (player == 2){
-        if ((playerTwoMoney) >= (5000 - (playerTwoScientists * 100)) && playerTwoTechnology < 10)
+        if ((playerTwoMoney) >= (20000 - (playerTwoScientists * 100)) && playerTwoTechnology < 10){
             playerTwoTechnology++;
+            playerTwoMoney -= 20000;
+        }
         else 
             cout << "You cannot upgrade your technology!" << endl;
     }
@@ -89,14 +94,18 @@ void Country::upgradeTech(int player){
 
 void Country::upgradeArmy(int player){
     if (player == 1){
-        if (playerOneMoney >= 8000)
+        if (playerOneMoney >= 8000){
             playerOneArmies++;
+            playerOneMoney -= 8000;
+        }
         else
             cout << "You cannot gain another army!" << endl;
     }
     else if (player == 2){
-        if (playerTwoMoney >= 8000)
+        if (playerTwoMoney >= 8000){
             playerTwoArmies++;
+            playerTwoMoney -= 8000;
+        }
         else
             cout << "You cannot gain another army!" << endl;
     }
@@ -118,14 +127,14 @@ void Country::shrinkTerritories(char sellChoice, char p2choice, int player){
                 if (p2choice == 'Y'){
                     cout << "You have sold your territory to " << playerTwoName << "." << endl;
                     playerOneTerritories--;
-                    playerOneMoney = playerOneMoney + 10000;
-                    playerTwoMoney = playerTwoMoney - 10000;
+                    playerOneMoney += 10000;
+                    playerTwoMoney -= 10000;
                     playerTwoTerritories++;
                 }
             }
             else if (sellChoice == 'N'){
                 playerOneTerritories--;
-                playerOneMoney = playerOneMoney + 10000;
+                playerOneMoney += 10000;
             }
         }
         else
@@ -146,19 +155,19 @@ void Country::shrinkTerritories(char sellChoice, char p2choice, int player){
                 if (p2choice == 'Y'){
                     cout << "You have sold your territory to " << playerOneName << "." << endl;
                     playerTwoTerritories--;
-                    playerTwoMoney = playerTwoMoney + 10000;
-                    playerOneMoney = playerOneMoney - 10000;
+                    playerTwoMoney += 10000;
+                    playerOneMoney -= 10000;
                     playerOneTerritories++;
                 }
             }
             else if (sellChoice == 'N'){
                 playerOneTerritories--;
-                playerOneMoney = playerOneMoney + 10000;
+                playerOneMoney += 10000;
             }
         }
             else if (sellChoice == 'N'){
                 playerTwoTerritories--;
-                playerTwoMoney = playerTwoMoney + 10000;
+                playerTwoMoney += 10000;
             }
         }
         else
@@ -207,14 +216,14 @@ void Country::lostBattle(int player){
         cout << playerOneName << " has lost this skirmish." << endl;
         playerOneArmies--;
         playerOneTerritories--;
-        playerOneMoney = playerOneMoney - 500;
+        playerOneMoney -= 500;
     }
     else if (player == 2){
         cout << playerTwoName << " has lost this skirmish." << endl;
         playerOneArmies--;
         playerTwoArmies--;
         playerTwoTerritories--;
-        playerTwoMoney = playerTwoMoney - 500;
+        playerTwoMoney -= 500;
     }
 }
 
@@ -254,7 +263,7 @@ void Country::winBattle(int player, int battleSuccessRate){
             playerOneArmies--;
         }
         playerTwoTerritories++;
-        playerTwoMoney = playerTwoMoney + 500; 
+        playerTwoMoney += 500; 
     }
 }
 
