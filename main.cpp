@@ -42,7 +42,7 @@ cout << playerOne.returnName(1) << " you have " << playerOne.returnArmies(1) << 
         //Player 1
         //Conquer
         if (playerTwo.returnTerritories(2) <= 0){
-            playerOne.winType(2, "conquer");
+            playerOne.winType(1, "conquer");
             hasWon = true;
             return 0;
         }
@@ -66,10 +66,10 @@ cout << playerOne.returnName(1) << " you have " << playerOne.returnArmies(1) << 
         }
         
         cout << playerOne.returnName(1) << ", it is your turn. What do you wish to do?" << endl <<
-                                           "\t1. Grow Territories ($10000 [Requires a spare army to control])\n" <<
-                                           "\t2. Shrink Territories (Get back $10000 [Can sell to " << playerTwo.returnName(2) << "])\n" << 
-                                           "\t3. Upgrade Technology ($" << 5000 - (playerOne.returnScientists(1) * 100) << " [Original Price: $5000])\n" <<
-                                           "\t4. Upgrade Army ($8000)\n" <<
+                                           "\t1. Grow Territories ($10,000 [+1 Territory, requires a spare army to control])\n" <<
+                                           "\t2. Shrink Territories (-1 Territory, get back $10,000 [Can sell to " << playerTwo.returnName(2) << "])\n" << 
+                                           "\t3. Upgrade Technology (+1 Level of tech, increases chance of winning skirmishes $" << 20000 - (playerOne.returnScientists(1) * 1000) << " [Original Price: $5000])\n" <<
+                                           "\t4. Upgrade Army (+1 army, increases chance of winning skirmishes, $8,000)\n" <<
                                            "\t5. Attack\n" <<
                                            "\t6. Pass\n" <<
                                            "\t7. Forfeit\n";
@@ -95,15 +95,15 @@ cout << playerOne.returnName(1) << " you have " << playerOne.returnArmies(1) << 
             case 5:
                 winChance = 0 + rand() % (100 + 0 - 1);
 
-                if (winChance < (50 + playerOne.returnArmies(1) + playerOne.returnTech(1))){
+                if (winChance < (33 + playerOne.returnArmies(1) + (playerOne.returnTech(1) * 3))){
                     playerOne.winBattle(1, 0);
                     playerTwo.lostBattle(2);
                 }
-                else if (winChance > 50){
+                else if (winChance > (33 + playerTwo.returnArmies(2) + (playerTwo.returnTech(2) * 3))){
                     playerTwo.winBattle(2, 0);
                     playerOne.lostBattle(1);
                 }
-                else if (winChance == 50)
+                else if (winChance == 33)
                     cout << "Draw." << endl;
 
                 //Conquer
@@ -147,6 +147,9 @@ cout << playerOne.returnName(1) << " you have " << playerOne.returnArmies(1) << 
         } 
         
         cout << playerOne.returnName(1) << " you now have " << playerOne.returnArmies(1) << " Armies, " << playerOne.returnTerritories(1) << " Territories, Technology Level " << playerOne.returnTech(1) << "/10, " << playerOne.returnScientists(1) << "/5 scientists, and $" << playerOne.returnMoney(1) << endl;
+        cout << playerTwo.returnName(2) << " you now have " << playerTwo.returnArmies(2) << " Armies, " << playerTwo.returnTerritories(2) << " Territories, Technology Level " << playerTwo.returnTech(2) << "/10, " << playerTwo.returnScientists(2) << "/5 scientists, and $" << playerTwo.returnMoney(2) << endl;
+        cout << endl;
+        
         playerOne.deCheeser(1);
 
     //Player 2
@@ -176,10 +179,10 @@ cout << playerOne.returnName(1) << " you have " << playerOne.returnArmies(1) << 
         }
         
         cout << playerTwo.returnName(2) << ", it is your turn. What do you wish to do?" << endl <<
-                                           "\t1. Grow Territories ($10000 [Requires a spare army to control])\n" <<
-                                           "\t2. Shrink Territories (Get back $10000 [Can sell to " << playerOne.returnName(1) << "])\n" << 
-                                           "\t3. Upgrade Technology ($" << 5000 - (playerTwo.returnScientists(2) * 100) << " [Original Price: $5000])\n" <<
-                                           "\t4. Upgrade Army ($8000)\n" <<
+                                           "\t1. Grow Territories ($10,000 [+1 Territory, requires a spare army to control])\n" <<
+                                           "\t2. Shrink Territories (-1 Territory, get back $10,000 [Can sell to " << playerOne.returnName(2) << "])\n" << 
+                                           "\t3. Upgrade Technology (+1 Level of tech, increases chance of winning skirmishes $" << 20000 - (playerTwo.returnScientists(1) * 1000) << " [Original Price: $5000])\n" <<
+                                           "\t4. Upgrade Army (+1 army, increases chance of winning skirmishes, $8,000)\n" <<
                                            "\t5. Attack\n" <<
                                            "\t6. Pass\n" <<
                                            "\t7. Forfeit\n";
@@ -248,6 +251,9 @@ cout << playerOne.returnName(1) << " you have " << playerOne.returnArmies(1) << 
         } 
 
         cout << playerTwo.returnName(2) << " you now have " << playerTwo.returnArmies(2) << " Armies, " << playerTwo.returnTerritories(2) << " Territories, Technology Level " << playerTwo.returnTech(2) << "/10, " << playerTwo.returnScientists(2) << "/5 scientists, and $" << playerTwo.returnMoney(2) << endl;
+        cout << playerOne.returnName(1) << " you now have " << playerOne.returnArmies(1) << " Armies, " << playerOne.returnTerritories(1) << " Territories, Technology Level " << playerOne.returnTech(1) << "/10, " << playerOne.returnScientists(1) << "/5 scientists, and $" << playerOne.returnMoney(1) << endl;
+        cout << endl;
+        
         playerTwo.deCheeser(1);
     } while (!hasWon);
 }
